@@ -316,9 +316,10 @@ class MessageFormatter:
                 if admin_panel.get('password'):
                     text += f"  🔑 Password: {admin_panel['password']}\n"
             
-            # لوحة التاجر - متاحة في Multi Vendor فقط
+            # لوحة التاجر - متاحة في Multi Vendor و Ready
             vendor_panel = demo.get("vendor_panel")
-            if vendor_panel and "multi_vendor" in project.get("id", ""):
+            project_id = project.get("id", "")
+            if vendor_panel and ("multi_vendor" in project_id or "ready" in project_id):
                 text += f"• لوحة التاجر: {vendor_panel.get('link', 'غير متاح')}\n"
                 if vendor_panel.get('email'):
                     text += f"  📧 Email: {vendor_panel['email']}\n"
@@ -334,9 +335,19 @@ class MessageFormatter:
                 if user_app.get('password'):
                     text += f"  🔑 Password: {user_app['password']}\n"
             
-            # تطبيق التاجر - متاح في Multi Vendor مع تطبيق
+            # تطبيق التاجر - متاح في Multi Vendor و Ready مع تطبيق
             vendor_app = demo.get("vendor_app")
-            if vendor_app and ("active_multi" in project.get("id", "") or "multi_vendor" in str(project.get("id", ""))) and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "")):
+            project_id = project.get("id", "")
+            version_id = version.get("id", "")
+
+            # شروط عرض تطبيق التاجر
+            show_vendor_app = (
+                vendor_app and
+                ("active_multi" in project_id or "multi_vendor" in project_id or "ready" in project_id) and
+                ("with_user_app" in version_id or "with_delivery" in version_id)
+            )
+
+            if show_vendor_app:
                 text += f"• تطبيق التاجر: {vendor_app.get('link', 'غير متاح')}\n"
                 if vendor_app.get('email'):
                     text += f"  📧 Email: {vendor_app['email']}\n"

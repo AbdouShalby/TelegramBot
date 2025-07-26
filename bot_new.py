@@ -698,7 +698,7 @@ async def main():
         print("📊 السجل يتم حفظه في:", log_filename)
         print("🛑 اضغط Ctrl+C لإيقاف البوت")
         
-        await app.run_polling()
+        await app.run_polling(drop_pending_updates=True)
         
     except Conflict as e:
         print("❌ خطأ: هناك نسخة أخرى من البوت شغالة بالفعل!")
@@ -727,10 +727,38 @@ async def main():
     except Exception as e:
         print(f"❌ خطأ غير متوقع: {e}")
         print("💡 تأكد من صحة التوكن والإعدادات")
+        print(f"📍 نوع الخطأ: {type(e).__name__}")
+        import traceback
+        print("📋 تفاصيل الخطأ:")
+        traceback.print_exc()
         logger.error(f"Unexpected error: {e}", exc_info=True)
         sys.exit(1)
 
 if __name__ == '__main__':
+    import platform
     import nest_asyncio
+
+    # تطبيق nest_asyncio للتوافق مع Windows
     nest_asyncio.apply()
-    asyncio.get_event_loop().run_until_complete(main()) 
+
+    # إعداد event loop للـ Windows
+    if platform.system() == 'Windows':
+        asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+
+    # إنشاء event loop جديد
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    try:
+        loop.run_until_complete(main())
+    except KeyboardInterrupt:
+        print("\n🛑 تم إيقاف البوت بواسطة المستخدم")
+    except Exception as e:
+        print(f"\n❌ خطأ في تشغيل البوت: {e}")
+        import traceback
+        traceback.print_exc()
+    finally:
+        try:
+            loop.close()
+        except:
+            pass

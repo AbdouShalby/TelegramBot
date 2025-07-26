@@ -21,7 +21,7 @@ def check_python_version():
 def check_requirements():
     """فحص المتطلبات المثبتة"""
     requirements = [
-        'telegram',
+        'python-telegram-bot==20.7',
         'python-dotenv',
         'apscheduler',
         'pytz',
