@@ -79,72 +79,83 @@ class MessageFormatter:
     @staticmethod
     def format_project_details(project: Dict[str, Any]) -> str:
         """تنسيق تفاصيل المشروع"""
-        text = f"🛠️ *{project.get('name', 'مشروع')}*\n"
-        text += f"— {project.get('description', 'لا يوجد وصف')}\n\n"
-        
+        text = f"🛠️ *{project.get('name', 'مشروع')}*\n\n"
+        text += f"📝 *الوصف:*\n{project.get('description', 'لا يوجد وصف')}\n\n"
+
         # السعر والوقت
         price = project.get("price", {})
-        if price:
-            text += f"💰 *السعر:* {price.get('text', 'غير محدد')}\n"
-        
         delivery_time = project.get("delivery_time")
-        if delivery_time:
-            text += f"⏰ *مدة التسليم:* {delivery_time}\n"
-        
+
+        if price or delivery_time:
+            text += "💼 *معلومات الطلب:*\n"
+            if price:
+                text += f"💰 السعر: {price.get('text', 'غير محدد')}\n"
+            if delivery_time:
+                text += f"⏰ مدة التسليم: {delivery_time}\n"
+            text += "\n"
+
         # التقنيات
         technologies = project.get("technologies", [])
         if technologies:
-            text += f"\n🧪 *التقنيات المستخدمة:*\n"
+            text += f"🧪 *التقنيات المستخدمة:*\n"
             for tech in technologies:
                 text += f"• {tech}\n"
-        
+            text += "\n"
+
         # المميزات
         features = project.get("features", [])
         if features:
-            text += f"\n✨ *المميزات:*\n"
+            text += f"✨ *المميزات الرئيسية:*\n"
             for feature in features:
                 text += f"• {feature}\n"
+            text += "\n"
         
         # روابط الديمو
         demo = project.get("demo", {})
         if demo:
-            text += f"\n🌐 *روابط الديمو:*\n"
-            
+            text += f"🌐 *روابط الديمو والاختبار:*\n\n"
+
             # الموقع الرئيسي
             website = demo.get("website")
             if website:
                 if isinstance(website, dict):
-                    text += f"• *الموقع:* {website.get('link', 'غير متاح')}\n"
+                    text += f"🔗 *الموقع الرئيسي:*\n"
+                    text += f"   {website.get('link', 'غير متاح')}\n"
                     if website.get('email'):
-                        text += f"  📧 Email: `{website['email']}`\n"
+                        text += f"   📧 Email: `{website['email']}`\n"
                     if website.get('password'):
-                        text += f"  🔑 Password: `{website['password']}`\n"
+                        text += f"   🔑 Password: `{website['password']}`\n"
+                    text += "\n"
                 else:
-                    text += f"• *الموقع:* {website}\n"
-            
+                    text += f"🔗 *الموقع الرئيسي:*\n   {website}\n\n"
+
             # لوحة الإدارة
             admin_panel = demo.get("admin_panel")
             if admin_panel:
-                text += f"• *لوحة الإدارة:* {admin_panel.get('link', 'غير متاح')}\n"
+                text += f"⚙️ *لوحة الإدارة:*\n"
+                text += f"   {admin_panel.get('link', 'غير متاح')}\n"
                 if admin_panel.get('email'):
-                    text += f"  📧 Email: `{admin_panel['email']}`\n"
+                    text += f"   📧 Email: `{admin_panel['email']}`\n"
                 if admin_panel.get('password'):
-                    text += f"  🔑 Password: `{admin_panel['password']}`\n"
+                    text += f"   🔑 Password: `{admin_panel['password']}`\n"
+                text += "\n"
             
             # لوحة التاجر
             vendor_panel = demo.get("vendor_panel")
             if vendor_panel:
-                text += f"• *لوحة التاجر:* {vendor_panel.get('link', 'غير متاح')}\n"
+                text += f"🏪 *لوحة التاجر:*\n"
+                text += f"   {vendor_panel.get('link', 'غير متاح')}\n"
                 if vendor_panel.get('email'):
-                    text += f"  📧 Email: `{vendor_panel['email']}`\n"
+                    text += f"   📧 Email: `{vendor_panel['email']}`\n"
                 if vendor_panel.get('password'):
-                    text += f"  🔑 Password: `{vendor_panel['password']}`\n"
-                
+                    text += f"   🔑 Password: `{vendor_panel['password']}`\n"
+
                 # حسابات متعددة
                 accounts = vendor_panel.get('accounts', [])
                 for i, account in enumerate(accounts, 1):
-                    text += f"  📧 Account {i}: `{account.get('email', '')}`\n"
-                    text += f"  🔑 Password: `{account.get('password', '')}`\n"
+                    text += f"   📧 Account {i}: `{account.get('email', '')}`\n"
+                    text += f"   🔑 Password: `{account.get('password', '')}`\n"
+                text += "\n"
             
             # لوحة المدرب
             instructor_panel = demo.get("instructor_panel")
@@ -176,36 +187,42 @@ class MessageFormatter:
             # تطبيق المستخدم
             user_app = demo.get("user_app")
             if user_app:
-                text += f"• *تطبيق المستخدم:* [تحميل APK]({user_app.get('link', '#')})\n"
+                text += f"📱 *تطبيق المستخدم:*\n"
+                text += f"   [تحميل APK]({user_app.get('link', '#')})\n"
                 if user_app.get('email'):
-                    text += f"  📧 Email: `{user_app['email']}`\n"
+                    text += f"   📧 Email: `{user_app['email']}`\n"
                 if user_app.get('password'):
-                    text += f"  🔑 Password: `{user_app['password']}`\n"
+                    text += f"   🔑 Password: `{user_app['password']}`\n"
                 if user_app.get('phone'):
-                    text += f"  📱 Phone: `{user_app['phone']}`\n"
-            
+                    text += f"   📱 Phone: `{user_app['phone']}`\n"
+                text += "\n"
+
             # تطبيق التاجر
             vendor_app = demo.get("vendor_app")
             if vendor_app:
-                text += f"• *تطبيق التاجر:* [تحميل APK]({vendor_app.get('link', '#')})\n"
+                text += f"🏪 *تطبيق التاجر:*\n"
+                text += f"   [تحميل APK]({vendor_app.get('link', '#')})\n"
                 if vendor_app.get('email'):
-                    text += f"  📧 Email: `{vendor_app['email']}`\n"
+                    text += f"   📧 Email: `{vendor_app['email']}`\n"
                 if vendor_app.get('password'):
-                    text += f"  🔑 Password: `{vendor_app['password']}`\n"
-            
+                    text += f"   🔑 Password: `{vendor_app['password']}`\n"
+                text += "\n"
+
             # تطبيق الدليفري
             delivery_app = demo.get("delivery_app")
             if delivery_app:
-                text += f"• *تطبيق الدليفري:* [تحميل APK]({delivery_app.get('link', '#')})\n"
+                text += f"🚚 *تطبيق الدليفري:*\n"
+                text += f"   [تحميل APK]({delivery_app.get('link', '#')})\n"
                 if delivery_app.get('email'):
-                    text += f"  📧 Email: `{delivery_app['email']}`\n"
+                    text += f"   📧 Email: `{delivery_app['email']}`\n"
                 if delivery_app.get('password'):
-                    text += f"  🔑 Password: `{delivery_app['password']}`\n"
+                    text += f"   🔑 Password: `{delivery_app['password']}`\n"
+                text += "\n"
         
         # ملاحظات
         notes = project.get("notes")
         if notes:
-            text += f"\n📝 *ملاحظات:* {notes}"
+            text += f"📝 *ملاحظات إضافية:*\n{notes}\n\n"
         
         return text
     
@@ -275,20 +292,23 @@ class MessageFormatter:
         project_name = project.get('name', 'مشروع')
         version_name = version.get('name', 'إصدار')
         description = version.get('description', 'لا يوجد وصف')
-        
-        text = f"🛠️ {project_name}\n"
-        text += f"📋 الإصدار: {version_name}\n\n"
-        
-        text += f"📝 الوصف: {description}\n\n"
-        
+
+        text = f"🛠️ *{project_name}*\n\n"
+        text += f"📋 *الإصدار:* {version_name}\n\n"
+
+        text += f"📝 *وصف الإصدار:*\n{description}\n\n"
+
         # السعر والوقت
         price = version.get("price", {})
-        if price:
-            text += f"💰 السعر: {price.get('text', 'غير محدد')}\n"
-        
         delivery_time = version.get("delivery_time")
-        if delivery_time:
-            text += f"⏰ مدة التسليم: {delivery_time}\n"
+
+        if price or delivery_time:
+            text += "💼 *معلومات الطلب:*\n"
+            if price:
+                text += f"💰 السعر: {price.get('text', 'غير محدد')}\n"
+            if delivery_time:
+                text += f"⏰ مدة التسليم: {delivery_time}\n"
+            text += "\n"
         
         # المميزات
         features = version.get("features", [])
