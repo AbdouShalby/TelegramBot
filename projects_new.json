@@ -312,6 +312,80 @@
               "features": ["لوحة إدارة احترافية", "لوحة تاجر", "موقع إلكتروني", "تطبيق موبايل للمستخدمين", "تطبيق موبايل للتجار", "تطبيق موبايل للدليفري", "نظام دفع", "إدارة المنتجات", "نظام عمولات", "نظام التوصيل", "تصميم متجاوب"]
             }
           ]
+        },
+        {
+          "id": "6valley",
+          "name": "6Valley",
+          "description": "6Valley هو نظام تجارة إلكترونية حديث ومرن متعدد التجار حيث يمكنك تنظيم متاجر ومحلات متعددة مثل المتاجر الرقمية، متاجر الأزياء، المتاجر الرياضية، متاجر المنزل والمعيشة، متاجر الصحة والجمال، والعديد من المتاجر الأخرى في منصة واحدة. ببساطة، ستحصل على كل شيء تحت سقف واحد!",
+          "technologies": ["Laravel", "MySQL", "Flutter", "Firebase"],
+          "features": ["نظام متعدد التجار", "لوحة إدارة شاملة", "لوحة تاجر متقدمة", "تطبيقات موبايل", "نظام دفع متكامل", "إدارة المنتجات", "نظام عمولات", "نظام التوصيل", "تقارير مفصلة", "إدارة الطلبات"],
+          "demo": {
+            "website": "https://6valley.6amtech.com/",
+            "admin_panel": {
+              "link": "https://6valley.6amtech.com/login/admin",
+              "email": "admin@admin.com",
+              "password": "12345678"
+            },
+            "vendor_panel": {
+              "link": "https://6valley.6amtech.com/vendor/auth/login",
+              "email": "test.seller@gmail.com",
+              "password": "12345678"
+            },
+            "user_app": {
+              "link": "https://6am-storage.sgp1.digitaloceanspaces.com/Demo-APK/6Valley/15.3/6Valley%20V15.3.apk",
+              "email": "test@customer.com",
+              "password": "12345678"
+            },
+            "vendor_app": {
+              "link": "https://6am-storage.sgp1.digitaloceanspaces.com/Demo-APK/6Valley/15.3/6Valley%20Vendor%20V15.3.apk",
+              "email": "test.seller@gmail.com",
+              "password": "12345678"
+            },
+            "delivery_app": {
+              "link": "https://6am-storage.sgp1.digitaloceanspaces.com/Demo-APK/6Valley/15.3/6Valley%20Delivery%20Man%20V4.3.apk",
+              "email": "test.del@gmail.com",
+              "password": "12345678"
+            }
+          },
+          "notes": "نظام تجارة إلكترونية متطور متعدد التجار مع تطبيقات Flutter وقاعدة بيانات Firebase للأداء العالي والمرونة الكاملة.",
+          "versions": [
+            {
+              "id": "website_only",
+              "name": "موقع فقط",
+              "description": "نظام متجر إلكتروني متعدد التجار مع لوحة إدارة ولوحة تاجر",
+              "price": {
+                "amount": 900,
+                "currency": "USD",
+                "text": "900 دولار"
+              },
+              "delivery_time": "شهر",
+              "features": ["لوحة إدارة احترافية", "لوحة تاجر", "موقع إلكتروني", "نظام دفع", "إدارة المنتجات", "نظام عمولات", "تصميم متجاوب"]
+            },
+            {
+              "id": "with_user_app",
+              "name": "مع تطبيق المستخدم والتاجر",
+              "description": "نظام متجر إلكتروني متكامل مع تطبيقات موبايل للمستخدمين والتجار",
+              "price": {
+                "amount": 1200,
+                "currency": "USD",
+                "text": "1200 دولار"
+              },
+              "delivery_time": "شهر ونصف",
+              "features": ["لوحة إدارة احترافية", "لوحة تاجر", "موقع إلكتروني", "تطبيق موبايل للمستخدمين", "تطبيق موبايل للتجار", "نظام دفع", "إدارة المنتجات", "نظام عمولات", "تصميم متجاوب"]
+            },
+            {
+              "id": "with_delivery",
+              "name": "مع نظام التوصيل والتطبيق",
+              "description": "نظام متجر إلكتروني شامل مع تطبيقات المستخدمين والتجار والدليفري",
+              "price": {
+                "amount": 1500,
+                "currency": "USD",
+                "text": "1500 دولار"
+              },
+              "delivery_time": "شهر ونصف",
+              "features": ["لوحة إدارة احترافية", "لوحة تاجر", "موقع إلكتروني", "تطبيق موبايل للمستخدمين", "تطبيق موبايل للتجار", "تطبيق موبايل للدليفري", "نظام دفع", "إدارة المنتجات", "نظام عمولات", "نظام التوصيل", "تصميم متجاوب"]
+            }
+          ]
         }
           ]
         }
