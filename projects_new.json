@@ -563,6 +563,63 @@
                   "features": ["جميع مميزات الموقع", "تطبيق موبايل للطلاب", "تطبيق موبايل للمدربين", "إشعارات فورية", "تعلم أوفلاين", "مزامنة البيانات", "واجهة مستخدم متطورة"]
                 }
               ]
+            },
+            {
+              "id": "skillgro",
+              "name": "SkillGro",
+              "description": "SkillGro هو نظام إدارة تعلم شامل (LMS) مصمم خصيصاً للمدربين والمعلمين. يسمح للمعلمين بإنشاء وإدارة وبيع كورساتهم الأونلاين. يوفر SkillGro منصة سلسة لتقديم كورسات تفاعلية عبر الإنترنت. مصمم مع مراعاة الاحتياجات التعليمية الحقيقية، SkillGro مجهز بمجموعة واسعة من المميزات لدعم نمو أعمال التعليم الإلكتروني الخاصة بك في غضون ساعات قليلة.",
+              "technologies": ["Laravel", "MySQL", "Bootstrap", "JavaScript"],
+              "features": ["نظام LMS متقدم", "إنشاء وإدارة الكورسات", "بيع الكورسات الأونلاين", "كورسات تفاعلية", "لوحة إدارة شاملة", "لوحة مدرب متطورة", "لوحة طالب", "نظام دفع متكامل", "شهادات إتمام", "تقارير تفصيلية", "تطبيق موبايل", "واجهة سهلة الاستخدام", "إعداد سريع"],
+              "demo": {
+                "website": "https://skillgro.websolutionus.com/",
+                "admin_panel": {
+                  "link": "https://skillgro.websolutionus.com/admin",
+                  "email": "admin@gmail.com",
+                  "password": "1234"
+                },
+                "instructor_panel": {
+                  "link": "https://skillgro.websolutionus.com/login",
+                  "email": "instructor@gmail.com",
+                  "password": "1234"
+                },
+                "student_panel": {
+                  "link": "https://skillgro.websolutionus.com/login",
+                  "email": "student@gmail.com",
+                  "password": "1234"
+                },
+                "mobile_app": {
+                  "link": "https://drive.google.com/drive/folders/122Dk33i-WybrMEHsvo2vtolA5EsLyyei?usp=sharing",
+                  "email": "student@gmail.com",
+                  "password": "1234"
+                }
+              },
+              "notes": "نظام إدارة تعلم متخصص للمدربين والمعلمين مع إمكانيات إنشاء وبيع الكورسات بسهولة وسرعة في الإعداد والتشغيل.",
+              "versions": [
+                {
+                  "id": "website_only",
+                  "name": "موقع فقط",
+                  "description": "نظام LMS كامل مع جميع اللوحات والمميزات الأساسية للتعليم الإلكتروني",
+                  "price": {
+                    "amount": 900,
+                    "currency": "USD",
+                    "text": "900 دولار"
+                  },
+                  "delivery_time": "شهر",
+                  "features": ["لوحة إدارة شاملة", "لوحة مدرب متطورة", "لوحة طالب", "إنشاء وإدارة الكورسات", "كورسات تفاعلية", "نظام دفع", "شهادات إتمام", "تقارير تفصيلية", "واجهة سهلة الاستخدام"]
+                },
+                {
+                  "id": "with_mobile_app",
+                  "name": "مع التطبيق",
+                  "description": "نظام LMS كامل مع تطبيق موبايل للطلاب والمدربين",
+                  "price": {
+                    "amount": 1200,
+                    "currency": "USD",
+                    "text": "1200 دولار"
+                  },
+                  "delivery_time": "شهر ونصف",
+                  "features": ["جميع مميزات الموقع", "تطبيق موبايل للطلاب", "تطبيق موبايل للمدربين", "تعلم أوفلاين", "إشعارات فورية", "مزامنة البيانات", "واجهة موبايل متطورة"]
+                }
+              ]
             }
           ]
         }

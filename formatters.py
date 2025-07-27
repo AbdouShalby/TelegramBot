@@ -451,7 +451,7 @@ class MessageFormatter:
 
             # لوحة المدرب - متاحة في المنصات التعليمية
             instructor_panel = demo.get("instructor_panel")
-            if instructor_panel and "rocket_lms" in project_id:
+            if instructor_panel and ("rocket_lms" in project_id or "skillgro" in project_id):
                 text += f"👨‍🏫 *لوحة المدرب:*\n"
                 text += f"   {instructor_panel.get('link', 'غير متاح')}\n"
                 if instructor_panel.get('email'):
@@ -462,7 +462,7 @@ class MessageFormatter:
 
             # لوحة الطالب - متاحة في المنصات التعليمية
             student_panel = demo.get("student_panel")
-            if student_panel and "rocket_lms" in project_id:
+            if student_panel and ("rocket_lms" in project_id or "skillgro" in project_id):
                 text += f"🎓 *لوحة الطالب:*\n"
                 text += f"   {student_panel.get('link', 'غير متاح')}\n"
                 if student_panel.get('email'):
@@ -471,7 +471,7 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{student_panel['password']}`\n"
                 text += "\n"
 
-            # لوحة المؤسسة - متاحة في المنصات التعليمية
+            # لوحة المؤسسة - متاحة في المنصات التعليمية (Rocket LMS فقط)
             organization_panel = demo.get("organization_panel")
             if organization_panel and "rocket_lms" in project_id:
                 text += f"🏢 *لوحة المؤسسة:*\n"
@@ -484,7 +484,7 @@ class MessageFormatter:
 
             # تطبيق المنصة التعليمية - متاح في إصدار "مع التطبيق"
             mobile_app = demo.get("mobile_app")
-            if mobile_app and "rocket_lms" in project_id and "with_mobile_app" in version_id:
+            if mobile_app and ("rocket_lms" in project_id or "skillgro" in project_id) and "with_mobile_app" in version_id:
                 text += f"📱 *تطبيق المنصة:*\n"
                 text += f"   🔗 رابط التحميل: {mobile_app.get('link', 'غير متاح')}\n"
                 if mobile_app.get('email'):
