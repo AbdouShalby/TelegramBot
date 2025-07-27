@@ -23,6 +23,7 @@ from telegram.error import Conflict, NetworkError, TimedOut
 from config import BOT_TOKEN, TRIGGER_WORDS, MESSAGE_DELAY
 from database import db
 from formatters import MessageFormatter
+from user_context import context_manager
 
 # Setup logging for server
 log_filename = f"bot_log_{datetime.now().strftime('%Y%m%d')}.txt"
@@ -56,16 +57,52 @@ class ProjectBot:
     async def start_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """أمر البداية"""
         self.stats['total_requests'] += 1
+
+        # التمييز بين الجروب والخاص
         if update.message.chat.type == 'private':
             self.stats['private_requests'] += 1
+            await self._handle_private_start(update, context)
         else:
             self.stats['group_requests'] += 1
-            
+            await self._handle_group_start(update, context)
+
+    async def _handle_private_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """معالجة أمر البداية في الخاص"""
+        user_id = update.effective_user.id
+        user_name = update.effective_user.first_name or "صديقي"
+
+        # التحقق من وجود سياق محفوظ للمستخدم
+        user_context = context_manager.get_user_context(user_id)
+
+        if user_context:
+            # رسالة ترحيب مخصصة
+            welcome_msg = context_manager.get_personalized_welcome(user_id)
+            if welcome_msg:
+                await update.message.reply_text(welcome_msg)
+                await self.show_main_menu(update, context)
+                return
+
+        # رسالة ترحيب عامة
         await update.message.reply_text(
-            "👋 أهلاً! أنا بوت مشاريع الشركة 🚀\n\n"
-            "في الجروبات، قم بعمل منشن لي واكتب كلمة من الكلمات التالية:\n"
-            f"• {' • '.join(TRIGGER_WORDS)}\n\n"
-            "مثال: `@ProjectsDetailsBot ديموز`"
+            f"🎉 أهلاً وسهلاً {user_name}!\n\n"
+            "🚀 مرحباً بك في بوت مشاريع الشركة\n"
+            "📋 يمكنك تصفح جميع مشاريعنا والحصول على التفاصيل الكاملة\n\n"
+            "اختر القسم الذي يهمك من القائمة أدناه:"
+        )
+        await self.show_main_menu(update, context)
+
+    async def _handle_group_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """معالجة أمر البداية في الجروب"""
+        user_name = update.effective_user.first_name or "صديقي"
+        bot_username = context.bot.username
+
+        await update.message.reply_text(
+            f"👋 أهلاً {user_name}!\n\n"
+            "🔒 عشان نقدر نشوف المشاريع براحة وبدون إزعاج الأعضاء،\n"
+            "📱 ابعتلي رسالة خاصة وهساعدك في كل حاجة!\n\n"
+            f"👈 اضغط هنا للمحادثة الخاصة: @{bot_username}\n\n"
+            "💡 أو يمكنك كتابة كلمة مفتاحية مع منشن البوت:\n"
+            f"• {' • '.join(TRIGGER_WORDS)}"
         )
     
     async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -120,25 +157,70 @@ class ProjectBot:
         """التعامل مع المنشن في الجروبات"""
         self.stats['total_requests'] += 1
         self.stats['group_requests'] += 1
-        
+
         message = update.message
         text = message.text.lower()
         bot_username = (await context.bot.get_me()).username.lower()
-        
+        user_id = update.effective_user.id
+        user_name = update.effective_user.first_name or "صديقي"
+
         # التحقق من منشن البوت وكلمة مفتاحية
         if f"@{bot_username}" in text and any(word in text for word in TRIGGER_WORDS):
-            # حماية من الطلبات المتكررة
-            chat_id = message.chat_id
-            if chat_id in self.processing_groups:
-                await message.reply_text("⏳ جاري معالجة طلب سابق، يرجى الانتظار...")
-                return
-            
-            self.processing_groups.add(chat_id)
-            try:
-                await self.show_main_menu(update, context, is_group=True)
-            finally:
-                # إزالة من قائمة المعالجة بعد ثانيتين
-                asyncio.create_task(self.remove_from_processing(chat_id, 2))
+            # حفظ اهتمام المستخدم
+            context_manager.save_user_interest(user_id, message.text, "group")
+
+            # رسالة توجيه للخاص
+            await self._send_private_redirect(update, context, message.text)
+
+        # التحقق من منشن البوت فقط (بدون كلمة مفتاحية)
+        elif f"@{bot_username}" in text:
+            await self._send_general_private_redirect(update, context)
+
+    async def _send_private_redirect(self, update: Update, context: ContextTypes.DEFAULT_TYPE, original_message: str):
+        """إرسال رسالة توجيه مخصصة للخاص"""
+        user_name = update.effective_user.first_name or "صديقي"
+        bot_username = context.bot.username
+
+        # استخراج الكلمات المفتاحية من الرسالة
+        keywords = []
+        text_lower = original_message.lower()
+
+        if any(word in text_lower for word in ['متجر', 'متاجر', 'مول', 'تسوق']):
+            keywords.append('المتاجر الإلكترونية')
+        if any(word in text_lower for word in ['توصيل', 'دليفري', 'طعام']):
+            keywords.append('تطبيقات التوصيل')
+        if any(word in text_lower for word in ['laravel', 'php', 'flutter']):
+            keywords.append('التقنيات المطلوبة')
+
+        redirect_msg = f"👋 أهلاً {user_name}!\n\n"
+
+        if keywords:
+            redirect_msg += f"🔍 شوفت إنك مهتم بـ: {', '.join(keywords)}\n\n"
+
+        redirect_msg += (
+            "🔒 عشان نقدر نشوف المشاريع براحة وبدون إزعاج الأعضاء،\n"
+            "📱 ابعتلي رسالة خاصة وهساعدك في كل حاجة!\n\n"
+            f"👈 اضغط هنا للمحادثة الخاصة: @{bot_username}"
+        )
+
+        if keywords:
+            redirect_msg += f"\n\n💡 هوريك أفضل المشاريع في {', '.join(keywords)}"
+
+        await update.message.reply_text(redirect_msg)
+
+    async def _send_general_private_redirect(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """إرسال رسالة توجيه عامة للخاص"""
+        user_name = update.effective_user.first_name or "صديقي"
+        bot_username = context.bot.username
+
+        await update.message.reply_text(
+            f"👋 أهلاً {user_name}!\n\n"
+            "🔒 عشان نقدر نتكلم براحة وبدون إزعاج الأعضاء،\n"
+            "📱 ابعتلي رسالة خاصة وهساعدك!\n\n"
+            f"👈 اضغط هنا للمحادثة الخاصة: @{bot_username}\n\n"
+            "💡 أو اكتب كلمة مفتاحية مع منشن البوت:\n"
+            f"• {' • '.join(TRIGGER_WORDS)}"
+        )
     
     async def remove_from_processing(self, chat_id: int, delay: int):
         """إزالة الجروب من قائمة المعالجة بعد فترة"""
@@ -149,12 +231,22 @@ class ProjectBot:
         """التعامل مع الرسائل في الخاص"""
         self.stats['total_requests'] += 1
         self.stats['private_requests'] += 1
-        
+
         message = update.message
         text = message.text.lower()
-        
+        user_id = update.effective_user.id
+
         # التحقق من الكلمات المفتاحية
         if any(word in text for word in TRIGGER_WORDS):
+            # التحقق من وجود سياق محفوظ
+            user_context = context_manager.get_user_context(user_id)
+
+            if user_context:
+                # رسالة ترحيب مخصصة
+                welcome_msg = context_manager.get_personalized_welcome(user_id)
+                if welcome_msg:
+                    await message.reply_text(welcome_msg)
+
             await self.show_main_menu(update, context, is_group=False)
         else:
             # البحث المباشر
@@ -172,63 +264,36 @@ class ProjectBot:
     
     async def show_main_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE, is_group: bool = False):
         """عرض القائمة الرئيسية"""
+
+        # في الجروبات: توجيه للخاص بدلاً من عرض القائمة
+        if is_group:
+            await self._send_general_private_redirect(update, context)
+            return
+
+        # في الخاص: عرض القائمة الكاملة
         categories = db.get_categories()
-        
+
         keyboard = []
         for category_id, category in categories.items():
             icon = category.get("icon", "📁")
             name = category.get("name", "قسم")
             keyboard.append([InlineKeyboardButton(
-                f"{icon} {name}", 
+                f"{icon} {name}",
                 callback_data=f"category_{category_id}"
             )])
-        
+
         # إضافة زر الإحصائيات
         keyboard.append([InlineKeyboardButton("📊 الإحصائيات", callback_data="stats")])
-        
+
         reply_markup = InlineKeyboardMarkup(keyboard)
         message_text = self.formatter.format_main_menu()
-        
-        if is_group:
-            # في الجروبات: تحديث الرسالة الموجودة أو إنشاء رسالة جديدة
-            chat_id = update.message.chat_id
-            if chat_id in self.group_messages:
-                try:
-                    await context.bot.edit_message_text(
-                        chat_id=chat_id,
-                        message_id=self.group_messages[chat_id],
-                        text=message_text,
-                        reply_markup=reply_markup,
-                        parse_mode='Markdown'
-                    )
-                    return
-                except Exception as e:
-                    logger.warning(f"Failed to edit message: {e}")
-                    # إذا فشل التحديث، احذف الرسالة القديمة
-                    try:
-                        await context.bot.delete_message(chat_id, self.group_messages[chat_id])
-                    except:
-                        pass
-            
-            # إرسال رسالة جديدة
-            sent_message = await update.message.reply_text(
-                message_text, 
-                reply_markup=reply_markup,
-                parse_mode='Markdown'
-            )
-            
-            # حفظ معرف الرسالة
-            self.group_messages[chat_id] = sent_message.message_id
-            
-            # حذف الرسالة بعد 10 دقائق بدلاً من 5
-            asyncio.create_task(self.delete_message_later(context, chat_id, sent_message.message_id, 600))
-        else:
-            # في الخاص: إرسال رسالة عادية
-            sent_message = await update.message.reply_text(
-                message_text, 
-                reply_markup=reply_markup,
-                parse_mode='Markdown'
-            )
+
+        # إرسال رسالة في الخاص
+        sent_message = await update.message.reply_text(
+            message_text,
+            reply_markup=reply_markup,
+            parse_mode='Markdown'
+        )
     
     async def delete_message_later(self, context: ContextTypes.DEFAULT_TYPE, chat_id: int, message_id: int, delay: int):
         """حذف الرسالة بعد فترة زمنية"""
