@@ -160,29 +160,35 @@ class MessageFormatter:
             # لوحة المدرب
             instructor_panel = demo.get("instructor_panel")
             if instructor_panel:
-                text += f"• *لوحة المدرب:* {instructor_panel.get('link', 'غير متاح')}\n"
+                text += f"👨‍🏫 *لوحة المدرب:*\n"
+                text += f"   {instructor_panel.get('link', 'غير متاح')}\n"
                 if instructor_panel.get('email'):
-                    text += f"  📧 Email: `{instructor_panel['email']}`\n"
+                    text += f"   📧 Email: `{instructor_panel['email']}`\n"
                 if instructor_panel.get('password'):
-                    text += f"  🔑 Password: `{instructor_panel['password']}`\n"
-            
+                    text += f"   🔑 Password: `{instructor_panel['password']}`\n"
+                text += "\n"
+
             # لوحة الطالب
             student_panel = demo.get("student_panel")
             if student_panel:
-                text += f"• *لوحة الطالب:* {student_panel.get('link', 'غير متاح')}\n"
+                text += f"👨‍🎓 *لوحة الطالب:*\n"
+                text += f"   {student_panel.get('link', 'غير متاح')}\n"
                 if student_panel.get('email'):
-                    text += f"  📧 Email: `{student_panel['email']}`\n"
+                    text += f"   📧 Email: `{student_panel['email']}`\n"
                 if student_panel.get('password'):
-                    text += f"  🔑 Password: `{student_panel['password']}`\n"
-            
+                    text += f"   🔑 Password: `{student_panel['password']}`\n"
+                text += "\n"
+
             # لوحة المنظمة
             organization_panel = demo.get("organization_panel")
             if organization_panel:
-                text += f"• *لوحة المنظمة:* {organization_panel.get('link', 'غير متاح')}\n"
+                text += f"🏢 *لوحة المنظمة:*\n"
+                text += f"   {organization_panel.get('link', 'غير متاح')}\n"
                 if organization_panel.get('email'):
-                    text += f"  📧 Email: `{organization_panel['email']}`\n"
+                    text += f"   📧 Email: `{organization_panel['email']}`\n"
                 if organization_panel.get('password'):
-                    text += f"  🔑 Password: `{organization_panel['password']}`\n"
+                    text += f"   🔑 Password: `{organization_panel['password']}`\n"
+                text += "\n"
             
             # تطبيق المستخدم
             user_app = demo.get("user_app")
@@ -219,6 +225,10 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{delivery_app['password']}`\n"
                 text += "\n"
         
+        # إضافة خط فاصل بعد روابط الديمو
+        if demo:
+            text += "─" * 30 + "\n\n"
+
         # ملاحظات
         notes = project.get("notes")
         if notes:
@@ -320,40 +330,46 @@ class MessageFormatter:
         # إضافة روابط الديمو حسب نوع الإصدار
         demo = project.get("demo", {})
         if demo:
-            text += f"\n🌐 روابط الديمو:\n"
-            
+            text += f"🌐 *روابط الديمو والاختبار:*\n\n"
+
             # الموقع الرئيسي - متاح في جميع الإصدارات
             website = demo.get("website")
             if website:
-                text += f"• الموقع: {website}\n"
-            
+                text += f"🔗 *الموقع الرئيسي:*\n   {website}\n\n"
+
             # لوحة الإدارة - متاحة في جميع الإصدارات
             admin_panel = demo.get("admin_panel")
             if admin_panel:
-                text += f"• لوحة الإدارة: {admin_panel.get('link', 'غير متاح')}\n"
+                text += f"⚙️ *لوحة الإدارة:*\n"
+                text += f"   {admin_panel.get('link', 'غير متاح')}\n"
                 if admin_panel.get('email'):
-                    text += f"  📧 Email: {admin_panel['email']}\n"
+                    text += f"   📧 Email: `{admin_panel['email']}`\n"
                 if admin_panel.get('password'):
-                    text += f"  🔑 Password: {admin_panel['password']}\n"
-            
+                    text += f"   🔑 Password: `{admin_panel['password']}`\n"
+                text += "\n"
+
             # لوحة التاجر - متاحة في Multi Vendor و Ready
             vendor_panel = demo.get("vendor_panel")
             project_id = project.get("id", "")
             if vendor_panel and ("multi_vendor" in project_id or "ready" in project_id):
-                text += f"• لوحة التاجر: {vendor_panel.get('link', 'غير متاح')}\n"
+                text += f"🏪 *لوحة التاجر:*\n"
+                text += f"   {vendor_panel.get('link', 'غير متاح')}\n"
                 if vendor_panel.get('email'):
-                    text += f"  📧 Email: {vendor_panel['email']}\n"
+                    text += f"   📧 Email: `{vendor_panel['email']}`\n"
                 if vendor_panel.get('password'):
-                    text += f"  🔑 Password: {vendor_panel['password']}\n"
+                    text += f"   🔑 Password: `{vendor_panel['password']}`\n"
+                text += "\n"
             
             # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق
             user_app = demo.get("user_app")
             if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "")):
-                text += f"• تطبيق المستخدم: {user_app.get('link', 'غير متاح')}\n"
+                text += f"📱 *تطبيق المستخدم:*\n"
+                text += f"   {user_app.get('link', 'غير متاح')}\n"
                 if user_app.get('email'):
-                    text += f"  📧 Email: {user_app['email']}\n"
+                    text += f"   📧 Email: `{user_app['email']}`\n"
                 if user_app.get('password'):
-                    text += f"  🔑 Password: {user_app['password']}\n"
+                    text += f"   🔑 Password: `{user_app['password']}`\n"
+                text += "\n"
             
             # تطبيق التاجر - متاح في Multi Vendor و Ready مع تطبيق
             vendor_app = demo.get("vendor_app")
@@ -368,20 +384,27 @@ class MessageFormatter:
             )
 
             if show_vendor_app:
-                text += f"• تطبيق التاجر: {vendor_app.get('link', 'غير متاح')}\n"
+                text += f"🏪 *تطبيق التاجر:*\n"
+                text += f"   {vendor_app.get('link', 'غير متاح')}\n"
                 if vendor_app.get('email'):
-                    text += f"  📧 Email: {vendor_app['email']}\n"
+                    text += f"   📧 Email: `{vendor_app['email']}`\n"
                 if vendor_app.get('password'):
-                    text += f"  🔑 Password: {vendor_app['password']}\n"
-            
+                    text += f"   🔑 Password: `{vendor_app['password']}`\n"
+                text += "\n"
+
             # تطبيق الدليفري - متاح في الإصدارات التي تحتوي على نظام التوصيل
             delivery_app = demo.get("delivery_app")
             if delivery_app and "with_delivery" in version.get("id", ""):
-                text += f"• تطبيق الدليفري: {delivery_app.get('link', 'غير متاح')}\n"
+                text += f"🚚 *تطبيق الدليفري:*\n"
+                text += f"   {delivery_app.get('link', 'غير متاح')}\n"
                 if delivery_app.get('email'):
-                    text += f"  📧 Email: {delivery_app['email']}\n"
+                    text += f"   📧 Email: `{delivery_app['email']}`\n"
                 if delivery_app.get('password'):
-                    text += f"  🔑 Password: {delivery_app['password']}\n"
+                    text += f"   🔑 Password: `{delivery_app['password']}`\n"
+                text += "\n"
+
+            # إضافة خط فاصل بعد روابط الديمو
+            text += "─" * 30 + "\n\n"
         
         return text
     
