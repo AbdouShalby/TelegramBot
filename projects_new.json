@@ -620,6 +620,63 @@
                   "features": ["جميع مميزات الموقع", "تطبيق موبايل للطلاب", "تطبيق موبايل للمدربين", "تعلم أوفلاين", "إشعارات فورية", "مزامنة البيانات", "واجهة موبايل متطورة"]
                 }
               ]
+            },
+            {
+              "id": "eclass",
+              "name": "eClass",
+              "description": "الطلاب يأخذون الكورسات بشكل أساسي كوسيلة لتحسين المهارات. صدق أو لا تصدق، في الوقت الحالي الفصول الإلكترونية للتعلم الجاد، المليئة بالمميزات ومع أحدث معايير SEO ببساطة لم تكن موجودة بسعر معقول جداً. برنامجنا الشامل متألق بالمميزات، ودود للعملاء، آمن، قابل للتوسع، موثوق، جميل المظهر، متزامن، قابل للتوسيع ومرن.",
+              "technologies": ["Laravel", "MySQL", "Bootstrap", "Flutter", "Firebase"],
+              "features": ["فصول إلكترونية متقدمة", "تحسين المهارات", "معايير SEO حديثة", "سعر معقول", "ودود للعملاء", "نظام آمن", "قابل للتوسع", "موثوق ومرن", "تصميم جميل", "متزامن", "لوحة إدارة شاملة", "لوحة مدرب", "لوحة طالب", "تطبيق موبايل", "نظام دفع متكامل"],
+              "demo": {
+                "website": "https://eclass.mediacity.co.in/demo2/public/",
+                "admin_panel": {
+                  "link": "https://eclass.mediacity.co.in/demo2/public/login",
+                  "email": "admin@mediacity.co.in",
+                  "password": "123456"
+                },
+                "instructor_panel": {
+                  "link": "https://eclass.mediacity.co.in/demo2/public/login",
+                  "email": "instructor@mediacity.co.in",
+                  "password": "123456"
+                },
+                "student_panel": {
+                  "link": "https://eclass.mediacity.co.in/demo2/public/login",
+                  "email": "user@mediacity.co.in",
+                  "password": "123456"
+                },
+                "user_app": {
+                  "link": "https://drive.google.com/file/d/1KAmQzpNfzW6lmx5AmVogGXJUnBVPO6CT/view?usp=sharing",
+                  "email": "user@mediacity.co.in",
+                  "password": "123456"
+                }
+              },
+              "notes": "منصة فصول إلكترونية شاملة مصممة للتعلم الجاد مع أحدث معايير SEO وسعر معقول، تتميز بالأمان والمرونة والقابلية للتوسع.",
+              "versions": [
+                {
+                  "id": "website_only",
+                  "name": "الموقع فقط",
+                  "description": "منصة فصول إلكترونية كاملة مع جميع اللوحات والمميزات الأساسية",
+                  "price": {
+                    "amount": 700,
+                    "currency": "USD",
+                    "text": "700 دولار"
+                  },
+                  "delivery_time": "شهر",
+                  "features": ["لوحة إدارة شاملة", "لوحة مدرب متطورة", "لوحة طالب", "فصول إلكترونية", "معايير SEO حديثة", "نظام آمن", "تصميم جميل", "نظام دفع", "قابل للتوسع"]
+                },
+                {
+                  "id": "with_mobile_app",
+                  "name": "مع التطبيق",
+                  "description": "منصة فصول إلكترونية كاملة مع تطبيق موبايل للطلاب",
+                  "price": {
+                    "amount": 1000,
+                    "currency": "USD",
+                    "text": "1000 دولار"
+                  },
+                  "delivery_time": "شهر ونصف",
+                  "features": ["جميع مميزات الموقع", "تطبيق موبايل للطلاب", "تعلم أوفلاين", "إشعارات فورية", "مزامنة البيانات", "واجهة موبايل متطورة", "تجربة تعلم محسنة"]
+                }
+              ]
             }
           ]
         }

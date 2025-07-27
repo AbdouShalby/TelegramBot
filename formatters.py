@@ -451,7 +451,7 @@ class MessageFormatter:
 
             # لوحة المدرب - متاحة في المنصات التعليمية
             instructor_panel = demo.get("instructor_panel")
-            if instructor_panel and ("rocket_lms" in project_id or "skillgro" in project_id):
+            if instructor_panel and ("rocket_lms" in project_id or "skillgro" in project_id or "eclass" in project_id):
                 text += f"👨‍🏫 *لوحة المدرب:*\n"
                 text += f"   {instructor_panel.get('link', 'غير متاح')}\n"
                 if instructor_panel.get('email'):
@@ -462,7 +462,7 @@ class MessageFormatter:
 
             # لوحة الطالب - متاحة في المنصات التعليمية
             student_panel = demo.get("student_panel")
-            if student_panel and ("rocket_lms" in project_id or "skillgro" in project_id):
+            if student_panel and ("rocket_lms" in project_id or "skillgro" in project_id or "eclass" in project_id):
                 text += f"🎓 *لوحة الطالب:*\n"
                 text += f"   {student_panel.get('link', 'غير متاح')}\n"
                 if student_panel.get('email'):
@@ -493,9 +493,9 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{mobile_app['password']}`\n"
                 text += "\n"
 
-            # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق أو مشروع 6amMart
+            # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق أو مشروع 6amMart أو eClass
             user_app = demo.get("user_app")
-            if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "") or project_id == "6ammart"):
+            if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "") or project_id == "6ammart" or ("eclass" in project_id and "with_mobile_app" in version_id)):
                 text += f"📱 *تطبيق المستخدم:*\n"
                 text += f"   🔗 رابط التحميل: {user_app.get('link', 'غير متاح')}\n"
                 if user_app.get('email'):
