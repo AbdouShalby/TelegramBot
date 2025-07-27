@@ -454,7 +454,7 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{vendor_panel['password']}`\n"
                 text += "\n"
 
-            # لوحة المستخدم - متاحة في MartVill وQuickad وLaraClassifier وeClassify
+            # لوحة المستخدم - متاحة في MartVill ومشاريع الإعلانات المبوبة
             user_panel = demo.get("user_panel")
             if user_panel and ("martvill" in project_id or "quickad" in project_id or "laraclassifier" in project_id or "eclassify" in project_id):
                 text += f"👤 *لوحة المستخدم:*\n"
