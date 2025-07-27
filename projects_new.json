@@ -514,7 +514,50 @@
           "name": "توصيل الطعام",
           "icon": "🍕",
           "description": "تطبيقات توصيل الطعام والطلبات",
-          "projects": []
+          "projects": [
+            {
+              "id": "6ammart",
+              "name": "6amMart",
+              "description": "6amMart هو حل أعمال إلكتروني متعدد الأغراض ومتعدد التجار تم تطويره باستخدام Laravel وFlutter Framework. يمكنك تشغيل عملك مع وحدات أعمال متنوعة وتجار غير محدودين ومنتجات مركزية.",
+              "technologies": ["Laravel", "MySQL", "React", "Flutter", "Firebase"],
+              "features": ["نظام متعدد الأغراض", "متعدد التجار", "لوحة إدارة شاملة", "لوحة تاجر متقدمة", "تطبيقات موبايل متكاملة", "نظام دفع متطور", "إدارة المنتجات", "نظام عمولات", "إدارة الطلبات", "نظام التوصيل", "تقارير تفصيلية", "دعم Firebase", "واجهة React حديثة"],
+              "demo": {
+                "website": "https://6ammart-react.6amtech.com/",
+                "admin_panel": {
+                  "link": "https://6ammart-admin.6amtech.com/login/admin",
+                  "email": "admin@admin.com",
+                  "password": "12345678"
+                },
+                "vendor_panel": {
+                  "link": "https://6ammart-admin.6amtech.com/login/vendor",
+                  "email": "test.restaurant@gmail.com",
+                  "password": "12345678"
+                },
+                "user_app": {
+                  "link": "https://6am-storage.sgp1.digitaloceanspaces.com/Demo-APK/6amMart/V3.2/6amMart%20V3.2.apk",
+                  "email": "test@customer.com",
+                  "password": "12345678"
+                },
+                "vendor_app": {
+                  "link": "https://6am-storage.sgp1.digitaloceanspaces.com/Demo-APK/6amMart/V3.2/6amMart%20Vendor%20V3.2.apk",
+                  "email": "test.restaurant@gmail.com",
+                  "password": "12345678"
+                },
+                "delivery_app": {
+                  "link": "https://6am-storage.sgp1.digitaloceanspaces.com/Demo-APK/6amMart/V3.2/6amMart%20Delivery%20Man%20V3.2.apk",
+                  "email": "test.del@gmail.com",
+                  "password": "12345678"
+                }
+              },
+              "notes": "حل أعمال شامل متعدد الأغراض مبني بـ Laravel وFlutter مع واجهة React حديثة ودعم Firebase للأداء العالي والمرونة الكاملة في إدارة الأعمال المتنوعة.",
+              "price": {
+                "amount": 1800,
+                "currency": "USD",
+                "text": "1800 دولار"
+              },
+              "delivery_time": "شهر ونصف"
+            }
+          ]
         }
       }
     },

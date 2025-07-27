@@ -405,9 +405,9 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{delivery_panel['password']}`\n"
                 text += "\n"
             
-            # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق
+            # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق أو مشروع 6amMart
             user_app = demo.get("user_app")
-            if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "")):
+            if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "") or project_id == "6ammart"):
                 text += f"📱 *تطبيق المستخدم:*\n"
                 text += f"   {user_app.get('link', 'غير متاح')}\n"
                 if user_app.get('email'):
@@ -424,8 +424,8 @@ class MessageFormatter:
             # شروط عرض تطبيق التاجر
             show_vendor_app = (
                 vendor_app and
-                ("active_multi" in project_id or "multi_vendor" in project_id or "ready" in project_id or "6valley" in project_id or "martvill" in project_id) and
-                ("with_user_app" in version_id or "with_delivery" in version_id)
+                ("active_multi" in project_id or "multi_vendor" in project_id or "ready" in project_id or "6valley" in project_id or "martvill" in project_id or "6ammart" in project_id) and
+                ("with_user_app" in version_id or "with_delivery" in version_id or project_id == "6ammart")
             )
 
             if show_vendor_app:
@@ -437,9 +437,9 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{vendor_app['password']}`\n"
                 text += "\n"
 
-            # تطبيق الدليفري - متاح في الإصدارات التي تحتوي على نظام التوصيل
+            # تطبيق الدليفري - متاح في الإصدارات التي تحتوي على نظام التوصيل أو مشروع 6amMart
             delivery_app = demo.get("delivery_app")
-            if delivery_app and "with_delivery" in version.get("id", ""):
+            if delivery_app and ("with_delivery" in version.get("id", "") or project_id == "6ammart"):
                 text += f"🚚 *تطبيق الدليفري:*\n"
                 text += f"   {delivery_app.get('link', 'غير متاح')}\n"
                 if delivery_app.get('email'):
