@@ -138,6 +138,8 @@ class MessageFormatter:
                     text += f"   📧 Email: `{admin_panel['email']}`\n"
                 if admin_panel.get('password'):
                     text += f"   🔑 Password: `{admin_panel['password']}`\n"
+                if admin_panel.get('note'):
+                    text += f"   📝 ملاحظة: {admin_panel['note']}\n"
                 text += "\n"
             
             # لوحة التاجر
@@ -254,6 +256,19 @@ class MessageFormatter:
                     text += f"   📧 Email: `{mobile_app['email']}`\n"
                 if mobile_app.get('password'):
                     text += f"   🔑 Password: `{mobile_app['password']}`\n"
+                text += "\n"
+
+            # لوحة الطالب وولي الأمر (Smart School)
+            student_parent_panel = demo.get("student_parent_panel")
+            if student_parent_panel:
+                text += f"👨‍👩‍👧‍👦 *لوحة الطالب وولي الأمر:*\n"
+                text += f"   {student_parent_panel.get('link', 'غير متاح')}\n"
+                if student_parent_panel.get('email'):
+                    text += f"   📧 Email: `{student_parent_panel['email']}`\n"
+                if student_parent_panel.get('password'):
+                    text += f"   🔑 Password: `{student_parent_panel['password']}`\n"
+                if student_parent_panel.get('note'):
+                    text += f"   📝 ملاحظة: {student_parent_panel['note']}\n"
                 text += "\n"
 
             # تطبيق المستخدم
