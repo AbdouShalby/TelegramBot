@@ -216,7 +216,7 @@ class MessageFormatter:
             user_app = demo.get("user_app")
             if user_app:
                 text += f"📱 *تطبيق المستخدم:*\n"
-                text += f"   [تحميل APK]({user_app.get('link', '#')})\n"
+                text += f"   🔗 رابط التحميل: {user_app.get('link', 'غير متاح')}\n"
                 if user_app.get('email'):
                     text += f"   📧 Email: `{user_app['email']}`\n"
                 if user_app.get('password'):
@@ -229,7 +229,7 @@ class MessageFormatter:
             vendor_app = demo.get("vendor_app")
             if vendor_app:
                 text += f"🏪 *تطبيق التاجر:*\n"
-                text += f"   [تحميل APK]({vendor_app.get('link', '#')})\n"
+                text += f"   🔗 رابط التحميل: {vendor_app.get('link', 'غير متاح')}\n"
                 if vendor_app.get('email'):
                     text += f"   📧 Email: `{vendor_app['email']}`\n"
                 if vendor_app.get('password'):
@@ -240,7 +240,7 @@ class MessageFormatter:
             delivery_app = demo.get("delivery_app")
             if delivery_app:
                 text += f"🚚 *تطبيق الدليفري:*\n"
-                text += f"   [تحميل APK]({delivery_app.get('link', '#')})\n"
+                text += f"   🔗 رابط التحميل: {delivery_app.get('link', 'غير متاح')}\n"
                 if delivery_app.get('email'):
                     text += f"   📧 Email: `{delivery_app['email']}`\n"
                 if delivery_app.get('password'):
@@ -409,7 +409,7 @@ class MessageFormatter:
             user_app = demo.get("user_app")
             if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "") or project_id == "6ammart"):
                 text += f"📱 *تطبيق المستخدم:*\n"
-                text += f"   {user_app.get('link', 'غير متاح')}\n"
+                text += f"   🔗 رابط التحميل: {user_app.get('link', 'غير متاح')}\n"
                 if user_app.get('email'):
                     text += f"   📧 Email: `{user_app['email']}`\n"
                 if user_app.get('password'):
@@ -430,7 +430,7 @@ class MessageFormatter:
 
             if show_vendor_app:
                 text += f"🏪 *تطبيق التاجر:*\n"
-                text += f"   {vendor_app.get('link', 'غير متاح')}\n"
+                text += f"   🔗 رابط التحميل: {vendor_app.get('link', 'غير متاح')}\n"
                 if vendor_app.get('email'):
                     text += f"   📧 Email: `{vendor_app['email']}`\n"
                 if vendor_app.get('password'):
@@ -441,7 +441,7 @@ class MessageFormatter:
             delivery_app = demo.get("delivery_app")
             if delivery_app and ("with_delivery" in version.get("id", "") or project_id == "6ammart"):
                 text += f"🚚 *تطبيق الدليفري:*\n"
-                text += f"   {delivery_app.get('link', 'غير متاح')}\n"
+                text += f"   🔗 رابط التحميل: {delivery_app.get('link', 'غير متاح')}\n"
                 if delivery_app.get('email'):
                     text += f"   📧 Email: `{delivery_app['email']}`\n"
                 if delivery_app.get('password'):
