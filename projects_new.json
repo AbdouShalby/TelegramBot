@@ -386,6 +386,33 @@
               "features": ["لوحة إدارة احترافية", "لوحة تاجر", "موقع إلكتروني", "تطبيق موبايل للمستخدمين", "تطبيق موبايل للتجار", "تطبيق موبايل للدليفري", "نظام دفع", "إدارة المنتجات", "نظام عمولات", "نظام التوصيل", "تصميم متجاوب"]
             }
           ]
+        },
+        {
+          "id": "shofy",
+          "name": "Shofy",
+          "description": "Shofy - سكريپت Laravel متعدد الاستخدامات للتجارة الإلكترونية، هو حل تجارة إلكترونية أنيق وعصري مبني بـ HTML5 وBootstrap مع مميزات شاملة.",
+          "technologies": ["Laravel", "MySQL", "Bootstrap"],
+          "features": ["نظام متعدد التجار", "لوحة إدارة احترافية", "لوحة تاجر متقدمة", "تصميم عصري", "نظام دفع متكامل", "إدارة المنتجات", "نظام عمولات", "تقارير مفصلة", "إدارة الطلبات", "تصميم متجاوب"],
+          "demo": {
+            "website": "https://shofy.botble.com/",
+            "admin_panel": {
+              "link": "https://shofy.botble.com/",
+              "email": "admin",
+              "password": "12345678"
+            },
+            "vendor_panel": {
+              "link": "https://shofy.botble.com/vendor/dashboard",
+              "email": "vendor@botble.com",
+              "password": "12345678"
+            }
+          },
+          "notes": "حل تجارة إلكترونية عصري مبني بـ Laravel مع تصميم Bootstrap أنيق ومميزات شاملة لإدارة المتاجر المتعددة.",
+          "price": {
+            "amount": 750,
+            "currency": "USD",
+            "text": "750 دولار"
+          },
+          "delivery_time": "شهر"
         }
           ]
         }
