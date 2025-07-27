@@ -189,7 +189,29 @@ class MessageFormatter:
                 if organization_panel.get('password'):
                     text += f"   🔑 Password: `{organization_panel['password']}`\n"
                 text += "\n"
-            
+
+            # لوحة المستخدم
+            user_panel = demo.get("user_panel")
+            if user_panel:
+                text += f"👤 *لوحة المستخدم:*\n"
+                text += f"   {user_panel.get('link', 'غير متاح')}\n"
+                if user_panel.get('email'):
+                    text += f"   📧 Email: `{user_panel['email']}`\n"
+                if user_panel.get('password'):
+                    text += f"   🔑 Password: `{user_panel['password']}`\n"
+                text += "\n"
+
+            # لوحة الدليفري
+            delivery_panel = demo.get("delivery_panel")
+            if delivery_panel:
+                text += f"🚛 *لوحة الدليفري:*\n"
+                text += f"   {delivery_panel.get('link', 'غير متاح')}\n"
+                if delivery_panel.get('email'):
+                    text += f"   📧 Email: `{delivery_panel['email']}`\n"
+                if delivery_panel.get('password'):
+                    text += f"   🔑 Password: `{delivery_panel['password']}`\n"
+                text += "\n"
+
             # تطبيق المستخدم
             user_app = demo.get("user_app")
             if user_app:

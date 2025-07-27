@@ -271,15 +271,18 @@ class ProjectBot:
             parse_mode='Markdown'
         )
     
-    async def show_subcategory_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE, 
+    async def show_subcategory_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE,
                                   category_id: str, subcategory_id: str, page: int = 0):
         """عرض قائمة المشاريع مع pagination"""
+        logger.info(f"Showing subcategory menu: {category_id}/{subcategory_id}, page: {page}")
+
         subcategory = db.get_subcategory(category_id, subcategory_id)
         if not subcategory:
             await update.callback_query.answer("❌ القسم الفرعي غير موجود")
             return
-        
+
         projects = db.get_projects(category_id, subcategory_id)
+        logger.info(f"Found {len(projects)} projects in {category_id}/{subcategory_id}")
         
         if not projects:
             await update.callback_query.answer("❌ لا توجد مشاريع")
@@ -311,23 +314,30 @@ class ProjectBot:
         
         # أزرار Pagination
         if total_pages > 1:
+            logger.info(f"Adding pagination: page {page+1}/{total_pages}")
             pagination_row = []
-            
+
             # زر السابق
             if page > 0:
-                pagination_row.append(InlineKeyboardButton("⬅️ السابق", 
-                    callback_data=f"page_{category_id}_{subcategory_id}_{page-1}"))
-            
+                prev_callback = f"page|{category_id}|{subcategory_id}|{page-1}"
+                logger.info(f"Adding previous button: {prev_callback}")
+                pagination_row.append(InlineKeyboardButton("⬅️ السابق",
+                    callback_data=prev_callback))
+
             # رقم الصفحة
-            pagination_row.append(InlineKeyboardButton(f"📄 {page+1}/{total_pages}", 
+            pagination_row.append(InlineKeyboardButton(f"📄 {page+1}/{total_pages}",
                 callback_data="no_action"))
-            
+
             # زر التالي
             if page < total_pages - 1:
-                pagination_row.append(InlineKeyboardButton("➡️ التالي", 
-                    callback_data=f"page_{category_id}_{subcategory_id}_{page+1}"))
-            
+                next_callback = f"page|{category_id}|{subcategory_id}|{page+1}"
+                logger.info(f"Adding next button: {next_callback}")
+                pagination_row.append(InlineKeyboardButton("➡️ التالي",
+                    callback_data=next_callback))
+
             keyboard.append(pagination_row)
+        else:
+            logger.info(f"No pagination needed: only {total_pages} page(s)")
         
         # أزرار إضافية
         nav_buttons.append(InlineKeyboardButton("🔙 العودة", 
@@ -558,13 +568,19 @@ class ProjectBot:
                     subcategory_id = parts[2]
                     await self.show_subcategory_menu(update, context, category_id, subcategory_id, 0)
             
-            elif choice.startswith("page_"):
-                parts = choice.split("_", 3)
+            elif choice.startswith("page|"):
+                logger.info(f"Pagination callback received: {choice}")
+                parts = choice.split("|")
+                logger.info(f"Pagination parts: {parts}")
                 if len(parts) >= 4:
                     category_id = parts[1]
                     subcategory_id = parts[2]
                     page = int(parts[3])
+                    logger.info(f"Navigating to page {page} for {category_id}/{subcategory_id}")
                     await self.show_subcategory_menu(update, context, category_id, subcategory_id, page)
+                else:
+                    logger.error(f"Invalid pagination callback format: {choice}")
+                    await query.answer("❌ خطأ في التنقل")
             
             elif choice.startswith("project_"):
                 # تقسيم الـ callback data بشكل صحيح

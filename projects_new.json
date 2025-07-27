@@ -413,6 +413,80 @@
             "text": "750 دولار"
           },
           "delivery_time": "شهر"
+        },
+        {
+          "id": "martvill",
+          "name": "MartVill",
+          "description": "تطبيق MartVill للعملاء هو تطبيق موبايل سهل الاستخدام وغني بالمميزات مصمم لتحسين تجربة التسوق للعملاء على منصة MartVill. مع تطبيق MartVill للعملاء، يمكن للمستخدمين تصفح وشراء المنتجات من مجموعة واسعة من الفئات بسهولة، كل ذلك من راحة أجهزتهم المحمولة.",
+          "technologies": ["Laravel", "MySQL", "Tailwind", "Flutter", "Firebase"],
+          "features": ["نظام متعدد التجار", "لوحة إدارة احترافية", "لوحة تاجر متقدمة", "لوحة مستخدم", "لوحة دليفري", "تطبيق موبايل Flutter", "تصميم Tailwind عصري", "نظام دفع متكامل", "إدارة المنتجات", "نظام عمولات", "إدارة الطلبات"],
+          "demo": {
+            "website": "https://demo.martvill.techvill.net/",
+            "admin_panel": {
+              "link": "https://demo.martvill.techvill.net/auth/login",
+              "email": "admin@techvill.net",
+              "password": "123456"
+            },
+            "vendor_panel": {
+              "link": "https://demo.martvill.techvill.net/vendor/dashboard",
+              "email": "vendor@techvill.net",
+              "password": "123456"
+            },
+            "user_panel": {
+              "link": "https://demo.martvill.techvill.net/",
+              "email": "user@techvill.net",
+              "password": "123456"
+            },
+            "user_app": {
+              "link": "https://drive.google.com/file/d/1a5pBQHwOtuMQz3e-SdKlmrOpeJuF7Q7h/view",
+              "email": "user@techvill.net",
+              "password": "123456"
+            },
+            "delivery_panel": {
+              "link": "https://demo.martvill.techvill.net/carrier/dashboard",
+              "email": "delivery@techvill.net",
+              "password": "123456"
+            }
+          },
+          "notes": "منصة تجارة إلكترونية متطورة مبنية بـ Laravel مع تصميم Tailwind عصري وتطبيق Flutter للموبايل مع إدارة شاملة للدليفري.",
+          "versions": [
+            {
+              "id": "website_only",
+              "name": "موقع فقط",
+              "description": "نظام متجر إلكتروني متعدد التجار مع لوحة إدارة ولوحة تاجر",
+              "price": {
+                "amount": 900,
+                "currency": "USD",
+                "text": "900 دولار"
+              },
+              "delivery_time": "شهر",
+              "features": ["لوحة إدارة احترافية", "لوحة تاجر", "لوحة مستخدم", "موقع إلكتروني", "نظام دفع", "إدارة المنتجات", "نظام عمولات", "تصميم متجاوب"]
+            },
+            {
+              "id": "with_user_app",
+              "name": "مع تطبيق المستخدم",
+              "description": "نظام متجر إلكتروني متكامل مع تطبيق موبايل للمستخدمين",
+              "price": {
+                "amount": 1200,
+                "currency": "USD",
+                "text": "1200 دولار"
+              },
+              "delivery_time": "شهر ونصف",
+              "features": ["لوحة إدارة احترافية", "لوحة تاجر", "لوحة مستخدم", "موقع إلكتروني", "تطبيق موبايل للمستخدمين", "نظام دفع", "إدارة المنتجات", "نظام عمولات", "تصميم متجاوب"]
+            },
+            {
+              "id": "with_delivery",
+              "name": "مع إدارة الدليفري",
+              "description": "نظام متجر إلكتروني شامل مع إدارة الدليفري والتوصيل",
+              "price": {
+                "amount": 1300,
+                "currency": "USD",
+                "text": "1300 دولار"
+              },
+              "delivery_time": "شهر ونصف",
+              "features": ["لوحة إدارة احترافية", "لوحة تاجر", "لوحة مستخدم", "موقع إلكتروني", "تطبيق موبايل للمستخدمين", "لوحة إدارة الدليفري", "نظام دفع", "إدارة المنتجات", "نظام عمولات", "نظام التوصيل", "تصميم متجاوب"]
+            }
+          ]
         }
           ]
         }
