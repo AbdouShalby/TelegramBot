@@ -648,67 +648,91 @@ class ProjectBot:
                     await query.answer("❌ خطأ في التنقل")
             
             elif choice.startswith("project_"):
-                # تقسيم الـ callback data بشكل صحيح
+                # تقسيم الـ callback data بشكل مرن
                 parts = choice.split("_", 1)  # تقسيم مرة واحدة فقط
                 if len(parts) >= 2:
                     # استخراج باقي البيانات
-                    remaining = parts[1]  # stores_single_vendor_active
-                    remaining_parts = remaining.split("_")
-                    
-                    if len(remaining_parts) >= 3:
-                        category_id = remaining_parts[0]  # stores
-                        subcategory_id = remaining_parts[1] + "_" + remaining_parts[2]  # single_vendor
-                        project_id = "_".join(remaining_parts[3:])  # active
-                        
-                        logger.info(f"Processing project request: {category_id}/{subcategory_id}/{project_id}")
-                        await self.show_project_details(update, context, category_id, subcategory_id, project_id)
+                    remaining = parts[1]  # مثل: stores_single_vendor_active أو education_lms_rocket_lms
+
+                    # البحث عن المشروع في جميع الأقسام
+                    categories = db.get_categories()
+                    found_project = None
+                    found_category = None
+                    found_subcategory = None
+
+                    for category_id, category in categories.items():
+                        if category_id in remaining:
+                            subcategories = category.get("subcategories", {})
+                            for subcategory_id, subcategory in subcategories.items():
+                                if subcategory_id in remaining:
+                                    projects = subcategory.get("projects", [])
+                                    for project in projects:
+                                        project_id = project.get("id", "")
+                                        if project_id in remaining:
+                                            found_project = project_id
+                                            found_category = category_id
+                                            found_subcategory = subcategory_id
+                                            break
+                                    if found_project:
+                                        break
+                            if found_project:
+                                break
+
+                    if found_project:
+                        logger.info(f"Processing project request: {found_category}/{found_subcategory}/{found_project}")
+                        await self.show_project_details(update, context, found_category, found_subcategory, found_project)
                     else:
-                        logger.warning(f"Invalid project callback data structure: {choice}")
-                        await query.answer("❌ بيانات غير صحيحة")
+                        logger.warning(f"Project not found in callback data: {choice}")
+                        await query.answer("❌ المشروع غير موجود")
                 else:
                     logger.warning(f"Invalid project callback data: {choice}")
                     await query.answer("❌ بيانات غير صحيحة")
             
             elif choice.startswith("version_"):
-                # بنية بسيطة وثابتة للـ callback data
+                # معالجة مرنة للإصدارات
                 parts = choice.split("_", 1)
                 if len(parts) >= 2:
-                    remaining = parts[1]  # stores_multi_vendor_martfury_website_only
-                    remaining_parts = remaining.split("_")
-                    
-                    if len(remaining_parts) >= 4:
-                        category_id = remaining_parts[0]  # stores
-                        subcategory_id = remaining_parts[1] + "_" + remaining_parts[2]  # multi_vendor
-                        
-                        # بنية ثابتة: تحديد project_id و version_id بشكل صحيح
-                        if len(remaining_parts) >= 5:
-                            # تحديد version_id أولاً
-                            version_id = None
-                            project_id = None
-                            
-                            # البحث عن version_id من النهاية
-                            if remaining_parts[-1] == "only" and remaining_parts[-2] == "website":
-                                version_id = "website_only"
-                                project_id = "_".join(remaining_parts[3:-2])
-                            elif remaining_parts[-1] == "app" and remaining_parts[-2] == "user" and remaining_parts[-3] == "with":
-                                version_id = "with_user_app"
-                                project_id = "_".join(remaining_parts[3:-3])
-                            elif remaining_parts[-1] == "delivery" and remaining_parts[-2] == "with":
-                                version_id = "with_delivery"
-                                project_id = "_".join(remaining_parts[3:-2])
-                            else:
-                                # محاولة عامة
-                                project_id = remaining_parts[3]
-                                version_id = "_".join(remaining_parts[4:])
-                            
-                            logger.info(f"Fixed parsing: project_id={project_id}, version_id={version_id}")
-                            await self.show_version_details(update, context, category_id, subcategory_id, project_id, version_id)
-                        else:
-                            logger.warning(f"Invalid version callback data structure: {choice}")
-                            await query.answer("❌ بيانات غير صحيحة")
+                    remaining = parts[1]  # مثل: stores_multi_vendor_martfury_website_only أو education_lms_rocket_lms_website_only
+
+                    # البحث عن المشروع والإصدار في جميع الأقسام
+                    categories = db.get_categories()
+                    found_project = None
+                    found_category = None
+                    found_subcategory = None
+                    found_version = None
+
+                    for category_id, category in categories.items():
+                        if category_id in remaining:
+                            subcategories = category.get("subcategories", {})
+                            for subcategory_id, subcategory in subcategories.items():
+                                if subcategory_id in remaining:
+                                    projects = subcategory.get("projects", [])
+                                    for project in projects:
+                                        project_id = project.get("id", "")
+                                        if project_id in remaining:
+                                            # البحث عن الإصدار
+                                            versions = project.get("versions", [])
+                                            for version in versions:
+                                                version_id = version.get("id", "")
+                                                if version_id in remaining:
+                                                    found_project = project_id
+                                                    found_category = category_id
+                                                    found_subcategory = subcategory_id
+                                                    found_version = version_id
+                                                    break
+                                            if found_version:
+                                                break
+                                    if found_version:
+                                        break
+                            if found_version:
+                                break
+
+                    if found_project and found_version:
+                        logger.info(f"Processing version request: {found_category}/{found_subcategory}/{found_project}/{found_version}")
+                        await self.show_version_details(update, context, found_category, found_subcategory, found_project, found_version)
                     else:
-                        logger.warning(f"Invalid version callback data structure: {choice}")
-                        await query.answer("❌ بيانات غير صحيحة")
+                        logger.warning(f"Version not found in callback data: {choice}")
+                        await query.answer("❌ الإصدار غير موجود")
                 else:
                     logger.warning(f"Invalid version callback data: {choice}")
                     await query.answer("❌ بيانات غير صحيحة")
