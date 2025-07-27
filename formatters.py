@@ -370,16 +370,39 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{admin_panel['password']}`\n"
                 text += "\n"
 
-            # لوحة التاجر - متاحة في Multi Vendor و Ready
+            # لوحة التاجر - متاحة في Multi Vendor و Ready و 6Valley و MartVill
             vendor_panel = demo.get("vendor_panel")
             project_id = project.get("id", "")
-            if vendor_panel and ("multi_vendor" in project_id or "ready" in project_id):
+            if vendor_panel and ("multi_vendor" in project_id or "ready" in project_id or "6valley" in project_id or "martvill" in project_id):
                 text += f"🏪 *لوحة التاجر:*\n"
                 text += f"   {vendor_panel.get('link', 'غير متاح')}\n"
                 if vendor_panel.get('email'):
                     text += f"   📧 Email: `{vendor_panel['email']}`\n"
                 if vendor_panel.get('password'):
                     text += f"   🔑 Password: `{vendor_panel['password']}`\n"
+                text += "\n"
+
+            # لوحة المستخدم - متاحة في MartVill
+            user_panel = demo.get("user_panel")
+            if user_panel and "martvill" in project_id:
+                text += f"👤 *لوحة المستخدم:*\n"
+                text += f"   {user_panel.get('link', 'غير متاح')}\n"
+                if user_panel.get('email'):
+                    text += f"   📧 Email: `{user_panel['email']}`\n"
+                if user_panel.get('password'):
+                    text += f"   🔑 Password: `{user_panel['password']}`\n"
+                text += "\n"
+
+            # لوحة الدليفري - متاحة في MartVill مع إدارة الدليفري
+            delivery_panel = demo.get("delivery_panel")
+            version_id = version.get("id", "")
+            if delivery_panel and "martvill" in project_id and "with_delivery" in version_id:
+                text += f"🚛 *لوحة الدليفري:*\n"
+                text += f"   {delivery_panel.get('link', 'غير متاح')}\n"
+                if delivery_panel.get('email'):
+                    text += f"   📧 Email: `{delivery_panel['email']}`\n"
+                if delivery_panel.get('password'):
+                    text += f"   🔑 Password: `{delivery_panel['password']}`\n"
                 text += "\n"
             
             # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق
@@ -401,7 +424,7 @@ class MessageFormatter:
             # شروط عرض تطبيق التاجر
             show_vendor_app = (
                 vendor_app and
-                ("active_multi" in project_id or "multi_vendor" in project_id or "ready" in project_id or "6valley" in project_id) and
+                ("active_multi" in project_id or "multi_vendor" in project_id or "ready" in project_id or "6valley" in project_id or "martvill" in project_id) and
                 ("with_user_app" in version_id or "with_delivery" in version_id)
             )
 
