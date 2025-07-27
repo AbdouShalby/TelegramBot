@@ -258,6 +258,19 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{mobile_app['password']}`\n"
                 text += "\n"
 
+            # لوحة طاقم العمل (eClassify)
+            staff_panel = demo.get("staff_panel")
+            if staff_panel:
+                text += f"👥 *لوحة طاقم العمل:*\n"
+                text += f"   {staff_panel.get('link', 'غير متاح')}\n"
+                if staff_panel.get('email'):
+                    text += f"   📧 Email: `{staff_panel['email']}`\n"
+                if staff_panel.get('password'):
+                    text += f"   🔑 Password: `{staff_panel['password']}`\n"
+                if staff_panel.get('note'):
+                    text += f"   📝 ملاحظة: {staff_panel['note']}\n"
+                text += "\n"
+
             # لوحة الطالب وولي الأمر (Smart School)
             student_parent_panel = demo.get("student_parent_panel")
             if student_parent_panel:
@@ -441,9 +454,9 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{vendor_panel['password']}`\n"
                 text += "\n"
 
-            # لوحة المستخدم - متاحة في MartVill وQuickad وLaraClassifier
+            # لوحة المستخدم - متاحة في MartVill وQuickad وLaraClassifier وeClassify
             user_panel = demo.get("user_panel")
-            if user_panel and ("martvill" in project_id or "quickad" in project_id or "laraclassifier" in project_id):
+            if user_panel and ("martvill" in project_id or "quickad" in project_id or "laraclassifier" in project_id or "eclassify" in project_id):
                 text += f"👤 *لوحة المستخدم:*\n"
                 text += f"   {user_panel.get('link', 'غير متاح')}\n"
                 if user_panel.get('email'):
@@ -508,9 +521,9 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{mobile_app['password']}`\n"
                 text += "\n"
 
-            # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق أو مشروع 6amMart أو eClass
+            # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق أو مشروع 6amMart أو eClass أو eClassify
             user_app = demo.get("user_app")
-            if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "") or project_id == "6ammart" or ("eclass" in project_id and "with_mobile_app" in version_id)):
+            if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "") or project_id == "6ammart" or ("eclass" in project_id and "with_mobile_app" in version_id) or ("eclassify" in project_id and "with_mobile_app" in version_id)):
                 text += f"📱 *تطبيق المستخدم:*\n"
                 text += f"   🔗 رابط التحميل: {user_app.get('link', 'غير متاح')}\n"
                 if user_app.get('email'):

@@ -546,6 +546,58 @@
                 "text": "1000 دولار"
               },
               "delivery_time": "شهر"
+            },
+            {
+              "id": "eclassify",
+              "name": "eClassify",
+              "description": "eClassify هو حل شامل متكامل للإعلانات المبوبة مع تطبيق موبايل للإعلانات المبوبة، واجهة ويب، ولوحة إدارة Laravel - مثالي لبناء نسخة من OLX، بوابة عقارية، أو بوابة وظائف.",
+              "technologies": ["Laravel", "MySQL", "Next.js", "React", "Flutter"],
+              "features": ["حل شامل متكامل", "تطبيق موبايل Flutter", "واجهة Next.js حديثة", "لوحة إدارة Laravel", "مثالي لـ OLX Clone", "بوابة عقارية", "بوابة وظائف", "لوحة طاقم العمل", "تقنيات حديثة", "تصميم متجاوب", "نظام شامل", "إدارة متقدمة", "واجهة React تفاعلية"],
+              "demo": {
+                "website": "https://eclassifyweb.wrteam.me/",
+                "admin_panel": {
+                  "link": "https://eclassify.wrteam.me/",
+                  "email": "admin@gmail.com",
+                  "password": "admin123"
+                },
+                "staff_panel": {
+                  "link": "https://eclassify.wrteam.me/",
+                  "email": "staff@gmail.com",
+                  "password": "Staff@123"
+                },
+                "user_app": {
+                  "link": "https://play.google.com/store/apps/details?id=com.eclassify.wrteam",
+                  "email": "user@demo.com",
+                  "password": "123456"
+                }
+              },
+              "notes": "حل إعلانات مبوبة متكامل مع أحدث التقنيات (Next.js, React, Flutter) مثالي لبناء منصات مثل OLX والبوابات العقارية ومواقع الوظائف.",
+              "versions": [
+                {
+                  "id": "website_only",
+                  "name": "موقع",
+                  "description": "حل إعلانات مبوبة متكامل مع واجهة Next.js ولوحة إدارة Laravel",
+                  "price": {
+                    "amount": 1200,
+                    "currency": "USD",
+                    "text": "1200 دولار"
+                  },
+                  "delivery_time": "شهر",
+                  "features": ["واجهة Next.js حديثة", "لوحة إدارة Laravel", "لوحة طاقم العمل", "نظام إعلانات شامل", "تصميم متجاوب", "إدارة متقدمة"]
+                },
+                {
+                  "id": "with_mobile_app",
+                  "name": "مع التطبيق",
+                  "description": "حل إعلانات مبوبة متكامل مع تطبيق Flutter للموبايل",
+                  "price": {
+                    "amount": 1600,
+                    "currency": "USD",
+                    "text": "1600 دولار"
+                  },
+                  "delivery_time": "شهر ونصف",
+                  "features": ["جميع مميزات الموقع", "تطبيق Flutter للموبايل", "تطبيق على Google Play", "واجهة موبايل متطورة", "تجربة مستخدم محسنة", "إشعارات فورية"]
+                }
+              ]
             }
           ]
         }
