@@ -379,7 +379,7 @@ class MessageFormatter:
             # شروط عرض تطبيق التاجر
             show_vendor_app = (
                 vendor_app and
-                ("active_multi" in project_id or "multi_vendor" in project_id or "ready" in project_id) and
+                ("active_multi" in project_id or "multi_vendor" in project_id or "ready" in project_id or "6valley" in project_id) and
                 ("with_user_app" in version_id or "with_delivery" in version_id)
             )
 
