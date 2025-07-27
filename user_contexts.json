@@ -1,0 +1,30 @@
+{
+  "1616704586": {
+    "keywords": [
+      "متاجر"
+    ],
+    "requests": [
+      {
+        "text": "@ProjectsDetailsBot عايز مشاريع متاجر",
+        "timestamp": "2025-07-27T18:08:50.902778",
+        "chat_type": "group"
+      }
+    ],
+    "last_activity": "2025-07-27T18:08:50.902778",
+    "preferred_categories": []
+  },
+  "920522199": {
+    "keywords": [
+      "متاجر"
+    ],
+    "requests": [
+      {
+        "text": "@ProjectsDetailsBot عايزه مشروع متاجر",
+        "timestamp": "2025-07-27T18:15:05.168702",
+        "chat_type": "group"
+      }
+    ],
+    "last_activity": "2025-07-27T18:15:05.168702",
+    "preferred_categories": []
+  }
+}

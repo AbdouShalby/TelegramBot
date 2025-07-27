@@ -212,6 +212,50 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{delivery_panel['password']}`\n"
                 text += "\n"
 
+            # لوحة المدرب/المدرس
+            instructor_panel = demo.get("instructor_panel")
+            if instructor_panel:
+                text += f"👨‍🏫 *لوحة المدرب:*\n"
+                text += f"   {instructor_panel.get('link', 'غير متاح')}\n"
+                if instructor_panel.get('email'):
+                    text += f"   📧 Email: `{instructor_panel['email']}`\n"
+                if instructor_panel.get('password'):
+                    text += f"   🔑 Password: `{instructor_panel['password']}`\n"
+                text += "\n"
+
+            # لوحة الطالب
+            student_panel = demo.get("student_panel")
+            if student_panel:
+                text += f"🎓 *لوحة الطالب:*\n"
+                text += f"   {student_panel.get('link', 'غير متاح')}\n"
+                if student_panel.get('email'):
+                    text += f"   📧 Email: `{student_panel['email']}`\n"
+                if student_panel.get('password'):
+                    text += f"   🔑 Password: `{student_panel['password']}`\n"
+                text += "\n"
+
+            # لوحة المؤسسة
+            organization_panel = demo.get("organization_panel")
+            if organization_panel:
+                text += f"🏢 *لوحة المؤسسة:*\n"
+                text += f"   {organization_panel.get('link', 'غير متاح')}\n"
+                if organization_panel.get('email'):
+                    text += f"   📧 Email: `{organization_panel['email']}`\n"
+                if organization_panel.get('password'):
+                    text += f"   🔑 Password: `{organization_panel['password']}`\n"
+                text += "\n"
+
+            # تطبيق المنصة التعليمية
+            mobile_app = demo.get("mobile_app")
+            if mobile_app:
+                text += f"📱 *تطبيق المنصة:*\n"
+                text += f"   🔗 رابط التحميل: {mobile_app.get('link', 'غير متاح')}\n"
+                if mobile_app.get('email'):
+                    text += f"   📧 Email: `{mobile_app['email']}`\n"
+                if mobile_app.get('password'):
+                    text += f"   🔑 Password: `{mobile_app['password']}`\n"
+                text += "\n"
+
             # تطبيق المستخدم
             user_app = demo.get("user_app")
             if user_app:
@@ -404,7 +448,51 @@ class MessageFormatter:
                 if delivery_panel.get('password'):
                     text += f"   🔑 Password: `{delivery_panel['password']}`\n"
                 text += "\n"
-            
+
+            # لوحة المدرب - متاحة في المنصات التعليمية
+            instructor_panel = demo.get("instructor_panel")
+            if instructor_panel and "rocket_lms" in project_id:
+                text += f"👨‍🏫 *لوحة المدرب:*\n"
+                text += f"   {instructor_panel.get('link', 'غير متاح')}\n"
+                if instructor_panel.get('email'):
+                    text += f"   📧 Email: `{instructor_panel['email']}`\n"
+                if instructor_panel.get('password'):
+                    text += f"   🔑 Password: `{instructor_panel['password']}`\n"
+                text += "\n"
+
+            # لوحة الطالب - متاحة في المنصات التعليمية
+            student_panel = demo.get("student_panel")
+            if student_panel and "rocket_lms" in project_id:
+                text += f"🎓 *لوحة الطالب:*\n"
+                text += f"   {student_panel.get('link', 'غير متاح')}\n"
+                if student_panel.get('email'):
+                    text += f"   📧 Email: `{student_panel['email']}`\n"
+                if student_panel.get('password'):
+                    text += f"   🔑 Password: `{student_panel['password']}`\n"
+                text += "\n"
+
+            # لوحة المؤسسة - متاحة في المنصات التعليمية
+            organization_panel = demo.get("organization_panel")
+            if organization_panel and "rocket_lms" in project_id:
+                text += f"🏢 *لوحة المؤسسة:*\n"
+                text += f"   {organization_panel.get('link', 'غير متاح')}\n"
+                if organization_panel.get('email'):
+                    text += f"   📧 Email: `{organization_panel['email']}`\n"
+                if organization_panel.get('password'):
+                    text += f"   🔑 Password: `{organization_panel['password']}`\n"
+                text += "\n"
+
+            # تطبيق المنصة التعليمية - متاح في إصدار "مع التطبيق"
+            mobile_app = demo.get("mobile_app")
+            if mobile_app and "rocket_lms" in project_id and "with_mobile_app" in version_id:
+                text += f"📱 *تطبيق المنصة:*\n"
+                text += f"   🔗 رابط التحميل: {mobile_app.get('link', 'غير متاح')}\n"
+                if mobile_app.get('email'):
+                    text += f"   📧 Email: `{mobile_app['email']}`\n"
+                if mobile_app.get('password'):
+                    text += f"   🔑 Password: `{mobile_app['password']}`\n"
+                text += "\n"
+
             # تطبيق المستخدم - متاح في الإصدارات التي تحتوي على تطبيق أو مشروع 6amMart
             user_app = demo.get("user_app")
             if user_app and ("with_user_app" in version.get("id", "") or "with_delivery" in version.get("id", "") or project_id == "6ammart"):
