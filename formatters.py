@@ -441,9 +441,9 @@ class MessageFormatter:
                     text += f"   🔑 Password: `{vendor_panel['password']}`\n"
                 text += "\n"
 
-            # لوحة المستخدم - متاحة في MartVill وQuickad
+            # لوحة المستخدم - متاحة في MartVill وQuickad وLaraClassifier
             user_panel = demo.get("user_panel")
-            if user_panel and ("martvill" in project_id or "quickad" in project_id):
+            if user_panel and ("martvill" in project_id or "quickad" in project_id or "laraclassifier" in project_id):
                 text += f"👤 *لوحة المستخدم:*\n"
                 text += f"   {user_panel.get('link', 'غير متاح')}\n"
                 if user_panel.get('email'):
